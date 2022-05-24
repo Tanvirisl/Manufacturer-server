@@ -27,6 +27,31 @@ async function run() {
       const toolsPart = await toolsCollection.find().toArray();
       res.send(toolsPart)
     })
+
+    // app.post('/postService', async(req, res) =>{
+    //   const postService = req.body;
+    //   const query = {
+    //     name:postService.name,
+    //     description:postService.description,
+    //     quantity:postService.quantity,
+    //     price:postService.price,
+    //   }
+    //   const post = await toolsCollection.findOne(query);
+    //   if(post){
+    //     return res.send({success :false, postService: post})
+    //   }
+    //   const result = await toolsCollection.insertOne(postService);
+    //   return res.send({success : true, result})
+    // })
+
+    app.post('/addTools', async(req, res)=>{
+      const addToolsParts = req.body;
+      const result = await toolsCollection.insertOne(addToolsParts);
+      res.send(result);
+    })
+
+
+
   }
   finally {
 
