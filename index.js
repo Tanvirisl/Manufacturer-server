@@ -36,6 +36,7 @@ async function run() {
     await client.connect();
     const toolsCollection = client.db('Assignment-12').collection('services');
     const userCollection = client.db('Assignment-12').collection('users');
+    const userReview = client.db('Assignment-12').collection('review');
     //get toolsParts
     app.get('/toolsParts', async (req, res) => {
       const toolsPart = await toolsCollection.find().toArray();
@@ -43,9 +44,19 @@ async function run() {
     })
 
 
-    app.post('/addTools',verifyJWT, async (req, res) => {
+    app.post('/addTools', async (req, res) => {
       const addToolsParts = req.body;
       const result = await toolsCollection.insertOne(addToolsParts);
+      res.send(result);
+    })
+    //add review 
+    app.get('/getReview', async (req, res) => {
+      const getReview = await userReview.find().toArray();
+      res.send(getReview)
+    })
+    app.post('/addReview', async (req, res) => {
+      const addReview = req.body;
+      const result = await userReview.insertOne(addReview);
       res.send(result);
     })
 
